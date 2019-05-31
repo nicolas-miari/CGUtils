@@ -20,7 +20,7 @@ public extension CGImage {
 
      - note: Based on code given in the WWDC 2018 video [Image and Graphics Best Practices](https://developer.apple.com/videos/play/wwdc2018/219/)
      */
-    public static func withContentsOf(_ imageURL: URL, downsampledToPointSize pointSize: CGSize, scale: CGFloat) -> CGImage? {
+    static func withContentsOf(_ imageURL: URL, downsampledToPointSize pointSize: CGSize, scale: CGFloat) -> CGImage? {
         let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
         guard let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, imageSourceOptions) else {
             return nil
@@ -59,6 +59,8 @@ public extension CGImagePropertyOrientation {
             return "right"
         case .rightMirrored:
             return "right mirrored"
+        @unknown default:
+            return "unknown"
         }
     }
 }

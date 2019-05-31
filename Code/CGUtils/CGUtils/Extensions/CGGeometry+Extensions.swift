@@ -10,19 +10,19 @@ import CoreGraphics
 
 public extension CGPoint {
 
-    public static func + (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+    static func + (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
         return CGPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
     }
 
-    public static func - (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+    static func - (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
         return CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
     }
 
-    public static func * (scale: CGFloat, point: CGPoint) -> CGPoint {
+    static func * (scale: CGFloat, point: CGPoint) -> CGPoint {
         return CGPoint(x: scale * point.x, y: scale * point.y)
     }
 
-    public static func * (point: CGPoint, scale: CGFloat) -> CGPoint {
+    static func * (point: CGPoint, scale: CGFloat) -> CGPoint {
         return scale * point
     }
 }
@@ -35,15 +35,15 @@ public extension CGSize {
         return width / height
     }
 
-    public static func * (scale: CGFloat, size: CGSize) -> CGSize {
+    static func * (scale: CGFloat, size: CGSize) -> CGSize {
         return CGSize(width: scale * size.width, height: scale * size.height)
     }
 
-    public static func * (size: CGSize, scale: CGFloat) -> CGSize {
+    static func * (size: CGSize, scale: CGFloat) -> CGSize {
         return scale * size
     }
 
-    public static func / (size: CGSize, fraction: CGFloat) -> CGSize {
+    static func / (size: CGSize, fraction: CGFloat) -> CGSize {
         return CGSize(width: size.width / fraction, height: size.height / fraction)
     }
 }
@@ -51,17 +51,26 @@ public extension CGSize {
 // MARK: -
 
 public extension CGRect {
-    public static func * (scale: CGFloat, rect: CGRect) -> CGRect {
+    static func * (scale: CGFloat, rect: CGRect) -> CGRect {
         let origin = scale * rect.origin
         let size = scale * rect.size
         return CGRect(origin: origin, size: size)
     }
 
-    public static func * (rect: CGRect, scale: CGFloat) -> CGRect {
+    static func * (rect: CGRect, scale: CGFloat) -> CGRect {
         return scale * rect
     }
 
-    public func offsetBy(_ vector: CGVector) -> CGRect {
+    func offsetBy(_ vector: CGVector) -> CGRect {
         return self.offsetBy(dx: vector.dx, dy: vector.dy)
     }
+
+    init(spannedBy point1: CGPoint, and point2: CGPoint) {
+        let x = min(point1.x, point2.x)
+        let y = min(point1.y, point2.y)
+        let width = abs(point1.x - point2.x)
+        let height = abs(point1.y - point2.y)
+
+        self.init(x: x, y: y, width: width, height: height)
+     }
 }
