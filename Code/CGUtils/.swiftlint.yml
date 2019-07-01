@@ -2,18 +2,6 @@ excluded:
   - Carthage
 
 line_length: 200
-
-identifier_name:
-  min_length: # only min_length
-    error: 3 # only error
-  excluded:
-  - r
-  - g
-  - b
-  - x
-  - y
-  - id
-  max_length: 100
   
 type_body_length:
   - 300 # warning
@@ -36,4 +24,7 @@ function_body_length:
 cyclomatic_complexity:
   warning: 15
   error: 20
+
+disabled_rules:
+  - identifier_name
 

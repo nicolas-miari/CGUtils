@@ -12,6 +12,10 @@
 		1F9B512B21567A4800ECE00D /* CGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F9B511D21567A4800ECE00D /* CGUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1F9B513721567A8800ECE00D /* CGGeometry+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B513521567A8800ECE00D /* CGGeometry+Extensions.swift */; };
 		1F9B513821567A8800ECE00D /* CGImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B513621567A8800ECE00D /* CGImage+Extensions.swift */; };
+		1FAD0B3E22C9F47D00448EBB /* CGSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAD0B3D22C9F47D00448EBB /* CGSegment.swift */; };
+		1FAD0B4022C9F48A00448EBB /* CGTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAD0B3F22C9F48A00448EBB /* CGTriangle.swift */; };
+		1FAD0B4222C9F4A700448EBB /* CollisionDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAD0B4122C9F4A700448EBB /* CollisionDetection.swift */; };
+		1FAD0B4422C9F50000448EBB /* CollisionDetectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAD0B4322C9F50000448EBB /* CollisionDetectionTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +38,10 @@
 		1F9B513521567A8800ECE00D /* CGGeometry+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGGeometry+Extensions.swift"; sourceTree = "<group>"; };
 		1F9B513621567A8800ECE00D /* CGImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImage+Extensions.swift"; sourceTree = "<group>"; };
 		1F9B513921567CA200ECE00D /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
+		1FAD0B3D22C9F47D00448EBB /* CGSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSegment.swift; sourceTree = "<group>"; };
+		1FAD0B3F22C9F48A00448EBB /* CGTriangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGTriangle.swift; sourceTree = "<group>"; };
+		1FAD0B4122C9F4A700448EBB /* CollisionDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionDetection.swift; sourceTree = "<group>"; };
+		1FAD0B4322C9F50000448EBB /* CollisionDetectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionDetectionTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +87,8 @@
 				1F9B513921567CA200ECE00D /* .swiftlint.yml */,
 				1F9B511D21567A4800ECE00D /* CGUtils.h */,
 				1F9B511E21567A4800ECE00D /* Info.plist */,
+				1FAD0B4122C9F4A700448EBB /* CollisionDetection.swift */,
+				1FAD0B3C22C9F46900448EBB /* Supporting_Types */,
 				1F9B513421567A7500ECE00D /* Extensions */,
 			);
 			path = CGUtils;
@@ -88,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				1F9B512821567A4800ECE00D /* CGUtilsTests.swift */,
+				1FAD0B4322C9F50000448EBB /* CollisionDetectionTests.swift */,
 				1F9B512A21567A4800ECE00D /* Info.plist */,
 			);
 			path = CGUtilsTests;
@@ -100,6 +111,15 @@
 				1F9B513521567A8800ECE00D /* CGGeometry+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1FAD0B3C22C9F46900448EBB /* Supporting_Types */ = {
+			isa = PBXGroup;
+			children = (
+				1FAD0B3D22C9F47D00448EBB /* CGSegment.swift */,
+				1FAD0B3F22C9F48A00448EBB /* CGTriangle.swift */,
+			);
+			path = Supporting_Types;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,6 +257,9 @@
 			files = (
 				1F9B513721567A8800ECE00D /* CGGeometry+Extensions.swift in Sources */,
 				1F9B513821567A8800ECE00D /* CGImage+Extensions.swift in Sources */,
+				1FAD0B4222C9F4A700448EBB /* CollisionDetection.swift in Sources */,
+				1FAD0B3E22C9F47D00448EBB /* CGSegment.swift in Sources */,
+				1FAD0B4022C9F48A00448EBB /* CGTriangle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FAD0B4422C9F50000448EBB /* CollisionDetectionTests.swift in Sources */,
 				1F9B512921567A4800ECE00D /* CGUtilsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
