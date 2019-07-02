@@ -16,4 +16,12 @@ public struct CGSegment {
         self.start = start
         self.end = end
     }
+
+    public var isVertical: Bool {
+        return (start.x == end.x)
+    }
+
+    public var isHorizontal: Bool {
+        return (start.y == end.y)
+    }
 }

@@ -167,6 +167,112 @@ public func segment(_ segment1: CGSegment, intersects segment2: CGSegment) -> Bo
     return true
 }
 
+/**
+ Caluclates the intersection point between to line segments.
+
+ - parameter segment1: One of the segments to test. Both segments are "on equal footing" (reversing the arguments should not affect the returned value, except for round-off errors).
+ - parameter segment2: The other segments to test. Both segments are "on equal footing" (reversing the arguments should not affect the returned value, except for round-off errors).
+ - returns: The point of intersection between the two segments if it exists, `nil` otherwise.
+
+ If the lines spanned by both segments meet but the segments themselves do not, `nil` is returned.
+ */
+func segmentIntersection(between segment1: CGSegment, and segment2: CGSegment) -> CGPoint? {
+    let eq1 = lineEquation(segment: segment1)
+    let eq2 = lineEquation(segment: segment2)
+    // (For each equation, ax + by + c = 0)
+
+    // Determine if the lines that result by extending both segments meet:
+    guard let ip = lineIntersection(between: eq1, and: eq2) else {
+        // Lines are parallel.
+        return nil
+        // TODO: Determine how to deal with overlapping segments
+    }
+    let t1 = parameter(of: ip, in: segment1)
+    let t2 = parameter(of: ip, in: segment2)
+
+    let validRange: ClosedRange<CGFloat> = 0.0 ... 1.0
+
+    guard validRange.contains(t1) && validRange.contains(t2) else {
+        return nil
+    }
+    return ip
+}
+
+/**
+ Assuming `point` lies (approximately) on the line determined by extending `segment`
+ indefinitely in both directions, calculate the parameter `t` in the equation:
+ `p = p0 + t*(p1 - p0)` (where `p` is the point in question, and `p1` and `p2` are the
+ segment's start and end respectively).
+
+ A value between 0 and 1 inclusive means that `point` (approximately) lies between `segment.start`
+ and `segment.end` (inclusive), respectively. A value less than `0` means `point` lies _outside_
+ the segment range, on the side of `segment.start`. A value greater than `1` means that point lies
+ outside the segment range, this time past the side of `segment.end`.
+
+ */
+func parameter(of point: CGPoint, in segment: CGSegment) -> CGFloat {
+    let start = segment.start
+    let end = segment.end
+
+    if segment.isVertical {
+        // Use y
+        return (point.y - start.y)/(end.y - start.y)
+    } else {
+        // Use x
+        return (point.x - start.x)/(end.x - start.x)
+    }
+}
+
+func lineIntersection(between line1:LineEquationCoefficients, and line2: LineEquationCoefficients) -> CGPoint? {
+    /*
+     In homogeneous coordinates, the two lines intersect at:
+     x = b1*c2 - b2*c1
+     y = a2*c1 - a1*c2
+     w = a1*b2 - a2*b1
+
+     source: https://en.wikipedia.org/wiki/Line-line_intersection#Using_homogeneous_coordinates
+     */
+    let w = (line1.a * line2.b) - (line2.a * line1.b)
+
+    guard w != 0 else { // Point at infinity: Lines are parallel
+        return nil
+    }
+
+    let x = (line1.b * line2.c) - (line2.b * line1.c)
+    let y = (line2.a * line1.c) - (line1.a * line2.c)
+
+    return CGPoint(x: x/w, y: y/w)
+}
+
+struct LineEquationCoefficients {
+    /// The oefficient of x
+    let a: CGFloat
+
+    /// The coefficient of y
+    let b: CGFloat
+
+    /// The constant term, equals ax + by
+    let c: CGFloat
+}
+
+func lineEquation(segment: CGSegment) -> LineEquationCoefficients {
+    if segment.isVertical {
+        // x = x0
+        // => 1*x + 0*y -x0 = 0
+        return LineEquationCoefficients(a: 1, b: 0, c: -(segment.start.x))
+    }
+
+    let start = segment.start
+    let end = segment.end
+
+    let m = (end.y - start.y)/(end.x - start.x)
+    let b = start.y - m*(start.x)
+
+    // y = m*x + b
+    // => -m*x + 1*y - b = 0
+    return LineEquationCoefficients(a: -m, b: 1, c: -b)
+}
+
 // MARK: - Object-Oriented Interface
 
 public extension CGSegment {
