@@ -19,7 +19,7 @@ class CollisionDetectionTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testSegmentIntersection() {
+    func testIfSegmentsIntersect() {
 
         // [1] Horizontal segment around origin:
         let p1 = CGPoint(x: -1, y: 0)
@@ -69,5 +69,48 @@ class CollisionDetectionTests: XCTestCase {
         let s6 = CGSegment(start: p9, end: p10)
 
         XCTAssertTrue(segment(s5, intersects: s6))
+    }
+
+    func testSegmentIntersectionPoints() {
+
+        let p0 = CGPoint.zero
+        let p1 = CGPoint(x: 2, y: 1)
+        let p2 = CGPoint(x: 1, y: 0)
+        let p3 = CGPoint(x: 1, y: 1)
+
+        let s1 = CGSegment(start: p0, end: p1) // Diagonal 1/2 slope from origin
+        let s2 = CGSegment(start: p2, end: p3) // Vertical at x = 1
+
+        guard let ip1 = segmentIntersection(between: s1, and: s2) else {
+            return XCTFail("Segments should cross")
+        }
+        // Should cross at x=1, y=0.5:
+        XCTAssertEqual(ip1, CGPoint(x: 1, y: 0.5))
+
+        // Upper half of s2)
+        let p4 = CGPoint(x: 1, y: 0.5)
+        let s3 = CGSegment(start: p3, end: p4)
+
+        guard let ip2 = segmentIntersection(between: s1, and: s3) else {
+            return XCTFail("Segments should touch")
+        }
+        // Should touch at x=1, y=0.5:
+        XCTAssertEqual(ip2, p4)
+
+        // Try a vertical segment...
+        let p5 = CGPoint(x: 0, y: 3)
+        let s4 = CGSegment(start: p0, end: p5)
+
+        let p6 = CGPoint(x: -2, y: 1)
+        let p7 = CGPoint(x: +1, y: 1)
+        let s5 = CGSegment(start: p6, end: p7)
+
+        guard let ip3 = segmentIntersection(between: s4, and: s5) else {
+            return XCTFail("Segments should touch")
+        }
+        XCTAssertEqual(ip3, CGPoint(x: 0, y: 1))
+
+        // Try disjoint segments:
+        XCTAssertNil(segmentIntersection(between: s1, and: s5), "Segments should NOT meet")
     }
 }
