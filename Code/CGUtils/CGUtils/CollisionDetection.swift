@@ -223,7 +223,7 @@ public func parameter(of point: CGPoint, in segment: CGSegment) -> CGFloat {
     }
 }
 
-public func lineIntersection(between line1:LineEquationCoefficients, and line2: LineEquationCoefficients) -> CGPoint? {
+public func lineIntersection(between line1: LineEquationCoefficients, and line2: LineEquationCoefficients) -> CGPoint? {
     /*
      In homogeneous coordinates, the two lines intersect at:
      x = b1*c2 - b2*c1
