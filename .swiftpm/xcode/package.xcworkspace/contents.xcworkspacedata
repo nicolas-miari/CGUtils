@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:CGUtils/CGUtils.xcodeproj">
+      location = "container:../..">
    </FileRef>
 </Workspace>
