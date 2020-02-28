@@ -9,6 +9,8 @@ import CoreGraphics
 
 public extension CGRect {
 
+    // MARK: - Multiply origin and size by a scalar
+
     static func * (scale: CGFloat, rect: CGRect) -> CGRect {
         let origin = scale * rect.origin
         let size = scale * rect.size
@@ -18,6 +20,27 @@ public extension CGRect {
     static func * (rect: CGRect, scale: CGFloat) -> CGRect {
         return scale * rect
     }
+
+    // MARK: - Multiply origin and size by a size (component-wise)
+
+    static func * (size: CGSize, rect: CGRect) -> CGRect {
+        let origin = size * rect.origin
+        let size = scale * rect.size
+        return CGRect(origin: origin, size: size)
+    }
+
+    static func * (rect: CGRect, size: CGSize) -> CGRect {
+        return size * rect
+    }
+
+    // MARK: - Divide origin and size by a size (component-wise)
+
+    static func / (rect: CGRect, size: CGSize) -> CGRect {
+        let invSize = CGSize(width: 1/size.width, height: 1/size.height)
+        return invSize * rect
+    }
+
+    // MARK: - Other
 
     /**
      Convenience wrapper around `offsetBy(dx:dy:)` that takes a **single** argument, of type `CGVector`.
