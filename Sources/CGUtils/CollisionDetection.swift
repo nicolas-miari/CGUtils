@@ -169,7 +169,7 @@ public func segment(_ segment1: CGSegment, intersects segment2: CGSegment) -> Bo
 }
 
 /**
- Caluclates the intersection point between to line segments.
+ Calculates the intersection point between to line segments.
 
  - parameter segment1: One of the segments to test. Both segments are "on equal footing" (reversing the arguments should not affect the returned value, except for round-off errors).
  - parameter segment2: The other segments to test. Both segments are "on equal footing" (reversing the arguments should not affect the returned value, except for round-off errors).
@@ -177,7 +177,7 @@ public func segment(_ segment1: CGSegment, intersects segment2: CGSegment) -> Bo
 
  If the lines spanned by both segments meet but the segments themselves do not, `nil` is returned.
  */
-public func segmentIntersection(between segment1: CGSegment, and segment2: CGSegment) -> CGPoint? {
+public func segmentIntersection(between segment1: CGSegment, and segment2: CGSegment, tolerance: CGFloat = 0) -> CGPoint? {
     let eq1 = lineEquation(segment: segment1)
     let eq2 = lineEquation(segment: segment2)
     // (For each equation, ax + by + c = 0)
@@ -191,7 +191,10 @@ public func segmentIntersection(between segment1: CGSegment, and segment2: CGSeg
     let t1 = parameter(of: ip, in: segment1)
     let t2 = parameter(of: ip, in: segment2)
 
-    let validRange: ClosedRange<CGFloat> = 0.0 ... 1.0
+    let lower: CGFloat = 0.0 - tolerance
+    let upper: CGFloat = 1.0 + tolerance
+
+    let validRange: ClosedRange<CGFloat> = lower ... upper
 
     guard validRange.contains(t1) && validRange.contains(t2) else {
         return nil
