@@ -31,8 +31,14 @@ public extension CGSize {
         return scale * size
     }
 
+    static func * (lhs: CGSize, rhs: CGSize) -> CGSize {
+        return CGSize(
+            width: lhs.width * rhs.width,
+            height: lhs.height * rhs.height
+        )
+    }
+
     static func / (size: CGSize, fraction: CGFloat) -> CGSize {
         return CGSize(width: size.width / fraction, height: size.height / fraction)
     }
 }
-

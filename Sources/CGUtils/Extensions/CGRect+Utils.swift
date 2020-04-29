@@ -7,6 +7,7 @@
 
 import CoreGraphics
 
+
 public extension CGRect {
 
     // MARK: - Multiply origin and size by a scalar
@@ -24,8 +25,10 @@ public extension CGRect {
     // MARK: - Multiply origin and size by a size (component-wise)
 
     static func * (size: CGSize, rect: CGRect) -> CGRect {
-        let origin = size * rect.origin
-        let size = scale * rect.size
+        let origin = CGPoint(
+            x: size.width * rect.origin.x,
+            y: size.height * rect.origin.y)
+        let size = size * rect.size
         return CGRect(origin: origin, size: size)
     }
 

@@ -9,7 +9,6 @@
 import CoreGraphics // CGImage
 import Foundation   // URL
 import ImageIO      // kCGImage...
-import UIKit
 
 public extension CGImage {
 
