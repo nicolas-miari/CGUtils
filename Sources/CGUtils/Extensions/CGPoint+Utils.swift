@@ -34,7 +34,7 @@ public extension CGPoint {
 
 // MARK: - Magnitude Inspection
 
-extension CGPoint {
+public extension CGPoint {
 
     enum Axis {
         case x
