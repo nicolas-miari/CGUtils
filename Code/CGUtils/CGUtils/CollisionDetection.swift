@@ -248,7 +248,7 @@ public func lineIntersection(between line1: LineEquationCoefficients, and line2:
 }
 
 public struct LineEquationCoefficients {
-    /// The oefficient of x
+    /// The coefficient of x
     let a: CGFloat
 
     /// The coefficient of y
@@ -285,6 +285,21 @@ public extension CGSegment {
 
     func intersects(_ otherSegment: CGSegment) -> Bool {
         return segment(self, intersects: otherSegment)
+    }
+
+    var slope: CGFloat {
+        if start.x == end.x {
+            return ((start.y < end.y) ? CGFloat.infinity : -CGFloat.infinity)
+        }
+        return (end.y - start.y)/(end.x - start.x)
+    }
+
+    func isParallel(to other: CGSegment) -> Bool {
+        if slope == .infinity {
+            // Pluse and minus infinity slopes are considered parallel
+            return abs(slope) == abs(other.slope)
+        }
+        return (slope == other.slope)
     }
 }
 
